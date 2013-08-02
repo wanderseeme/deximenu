@@ -116,7 +116,7 @@
     border-image: url("b-panel-r2.png") 12 12 12 12;
     */
     /* DW: 20130802 formerly 480px, which will clip list */
-    height: 630px;
+    height: 480px;
 }
 
 .gnomenu-category-places-box {
