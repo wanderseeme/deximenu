@@ -25,6 +25,7 @@
 }
 
 .gnomenu-menu-bottom-pane {
+    padding: 0px 0px 10px 0px;
 }
 
 .gnomenu-user-group-box {
@@ -115,7 +116,7 @@
     border-image: url("b-panel-r2.png") 12 12 12 12;
     */
     /* DW: 20130802 formerly 480px, which will clip list */
-    height: 640px;
+    height: 630px;
 }
 
 .gnomenu-category-places-box {

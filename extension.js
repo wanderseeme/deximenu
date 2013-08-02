@@ -1237,7 +1237,7 @@ const PanelMenuButton = new Lang.Class({
         let topPane = new St.BoxLayout({ style_class: 'gnomenu-menu-top-pane' });
 
         // Bottom pane holds favorites, categories/places/power, applications, workspaces (packed horizontally)
-        let bottomPane = new St.BoxLayout({ style_class: 'gnomenu-menu-top-pane' });
+        let bottomPane = new St.BoxLayout({ style_class: 'gnomenu-menu-bottom-pane' });
 
         // groupCategoryPlaces holds categories and places (packed vertically)
         this.groupCategoryPlaces = new St.BoxLayout({ style_class: 'gnomenu-category-places-box', vertical: true });
@@ -1750,13 +1750,23 @@ const PanelMenuButton = new Lang.Class({
 	// DW: 20130802 exchange UserGroup and PowerGroup
 	// UserGroup: Restart (Shell), Suspend, Tweak Tool, Control Center
 	// PowerGroup: Logout, Lock, Shutdown
-	this.userGroupBox.add(systemRestart.actor, {x_fill:false, y_fill:false, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
+	// Final: systemShutdown, logoutUser, lockScreen, systemRestart, systemSuspend, tweakTool, controlCenter
+        let userGroupBoxSpacer4 = new St.Label({text: ''});
+        let userGroupBoxSpacer5 = new St.Label({text: ''});
+        let userGroupBoxSpacer6 = new St.Label({text: ''});
+	this.userGroupBox.add(systemShutdown.actor, {x_fill:false, y_fill:false, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
         this.userGroupBox.add(userGroupBoxSpacer1, {expand: true, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
-        this.userGroupBox.add(systemSuspend.actor, {x_fill:false, y_fill:false, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
-        this.userGroupBox.add(userGroupBoxSpacer2, {expand: true, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
-        this.userGroupBox.add(tweakTool.actor, {x_fill:false, y_fill:false, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
+        this.userGroupBox.add(logoutUser.actor, {x_fill:false, y_fill:false, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
+        //this.userGroupBox.add(userGroupBoxSpacer2, {expand: true, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
+        //this.userGroupBox.add(lockScreen.actor, {x_fill:false, y_fill:false, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
         this.userGroupBox.add(userGroupBoxSpacer3, {expand: true, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
-        this.userGroupBox.add(controlCenter.actor, {x_fill:false, y_fill:false, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
+        this.userGroupBox.add(systemRestart.actor, {x_fill:false, y_fill:false, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
+        //this.userGroupBox.add(userGroupBoxSpacer4, {expand: true, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
+        //this.userGroupBox.add(systemSuspend.actor, {x_fill:false, y_fill:false, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
+        this.userGroupBox.add(userGroupBoxSpacer5, {expand: true, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
+        this.userGroupBox.add(tweakTool.actor, {x_fill:false, y_fill:false, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
+        //this.userGroupBox.add(userGroupBoxSpacer6, {expand: true, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
+        //this.userGroupBox.add(controlCenter.actor, {x_fill:false, y_fill:false, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
 
         this.powerGroupBox.add(logoutUser.actor, {x_fill:false, y_fill:false, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
         this.powerGroupBox.add(powerGroupBoxSpacer1, {expand: true, x_align:St.Align.MIDDLE, y_align:St.Align.MIDDLE});
@@ -1814,10 +1824,12 @@ const PanelMenuButton = new Lang.Class({
 
         // combine categories, places, and power group into one container (packed vertically)
         this.groupCategoryPlacesPower.add_actor(this.groupCategoryPlacesScrollBox);
-        this.groupCategoryPlacesPower.add_actor(this.powerGroupBox);
+	// DW: merge PowerGroup and UserGroup to new UserGroup
+        // this.groupCategoryPlacesPower.add_actor(this.powerGroupBox);
 
         // bottomPane packs horizontally
         bottomPane.add_actor(this.favoritesScrollBox);
+	// DW: use groupCategoryPlacesScrollBox instead of groupCategoryPlacesPower
         bottomPane.add(this.groupCategoryPlacesPower, {x_fill: false, y_fill: false, x_align:St.Align.START, y_align:St.Align.START});
         bottomPane.add_actor(this.applicationsScrollBox);
         //bottomPane.add_actor(this.workspacesBox);
